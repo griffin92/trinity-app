@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trinity Auto Werx</title>
+<meta name="theme-color" content="#07070E">
+<meta name="description" content="Your Trinity Auto Werx garage — service history, rewards, Care Club and quick booking.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Trinity">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@600;700;800&family=Wix+Madefor+Text:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --page:#07070E; --panel:#0F0F1B; --panel-2:#161626; --sunk:#0B0B16;
+  --line:#282840; --line-soft:#1C1C2E; --text:#FFFFFC; --muted:#A7A8BD; --faint:#6E6F87;
+  --accent:#FFFFF1; --accent-hi:#FFFFFF; --accent-soft:rgba(255,255,241,.09); --accent-line:rgba(255,255,241,.30); --on-accent:#0B0B14;
+  --red:#D9524E; --red-soft:rgba(217,82,78,.14); --ok:#6FCB9B; --ok-soft:rgba(111,203,155,.10); --bad:#E39A9A; --bad-soft:rgba(227,154,154,.12);
+  --gold:#D9AE5A; --gold-soft:rgba(217,174,90,.14);
+  --font-head:"Benzin","Wix Madefor Display","Wix Madefor Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font:"Wix Madefor Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--page)}
+body{color:var(--text);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;
+  background:radial-gradient(900px 500px at 10% -10%, rgba(217,82,78,.07), transparent 60%),radial-gradient(800px 500px at 100% 0%, rgba(65,66,95,.22), transparent 55%),var(--page)}
+.screen{display:none;max-width:560px;margin:0 auto;padding:calc(18px + var(--safe-t)) 16px calc(96px + var(--safe-b))}
+.screen.on{display:block}
+header.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+header.top img{height:26px}
+.iconbtn{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 12px;font-family:var(--font);font-weight:700;font-size:12.5px;cursor:pointer}
+h1{font-family:var(--font-head);font-size:26px;font-weight:800;letter-spacing:-.02em;margin:4px 0 14px}
+h2{font-family:var(--font-head);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:700}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.muted{color:var(--muted)} .faint{color:var(--faint)} .small{font-size:12.5px}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:14px 16px;background:var(--accent);color:var(--on-accent);font-family:var(--font);font-weight:800;font-size:15.5px;cursor:pointer;text-align:center;text-decoration:none}
+.btn:disabled{opacity:.5}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);font-weight:700}
+.btn.red{background:var(--red);color:#fff}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input{width:100%;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--sunk);color:var(--text);font-family:var(--font);font-size:16px}
+input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.code{font-family:var(--font-head);font-size:28px;letter-spacing:.35em;text-align:center}
+.msg{display:none;padding:11px 13px;border-radius:11px;font-size:13.5px;margin-top:10px}
+.msg.on{display:block} .msg.bad{border:1px solid var(--bad);background:var(--bad-soft)} .msg.good{border:1px solid var(--ok);background:var(--ok-soft)}
+a.link{color:var(--text);font-weight:700}
+/* login */
+.login{min-height:calc(100vh - 120px);display:flex;flex-direction:column;justify-content:center}
+.login .logo{width:230px;margin:0 auto 6px;display:block}
+.login .tag{text-align:center;color:var(--muted);margin:0 0 26px}
+/* vehicle hero */
+.hero{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#14141f,#0a0a12);border:1px solid var(--line);margin-bottom:12px}
+.spin{position:relative;aspect-ratio:4/3;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.spin img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none}
+.spin img.on{opacity:1}
+.hero .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.75));display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none}
+.hero .cap b{font-size:16px} .hero .cap span{font-size:11.5px;color:#ddd}
+.hero .hint{position:absolute;top:10px;right:10px;font-size:11px;background:rgba(0,0,0,.55);padding:4px 9px;border-radius:999px;pointer-events:none}
+.hero .load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
+.hero iframe{display:block;width:100%;aspect-ratio:4/3;border:0}
+.placeholder{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px;color:var(--muted);font-size:13.5px}
+.placeholder svg{width:150px;opacity:.55;margin-bottom:10px}
+.chips{display:flex;gap:6px;overflow-x:auto;margin:-2px 0 12px;padding-bottom:2px}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:7px 12px;font-family:var(--font);font-weight:700;font-size:12.5px;cursor:pointer}
+.chip.on{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+/* cards */
+.pts{display:flex;justify-content:space-between;align-items:baseline}
+.pts .big{font-family:var(--font-head);font-size:34px;font-weight:800}
+.prog{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin:10px 0 6px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--red),#f08a72)}
+.tier{border-color:var(--gold);background:linear-gradient(135deg,var(--gold-soft),transparent 60%),var(--panel)}
+.tier .badge{display:inline-block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:3px 9px}
+.tier .name{font-family:var(--font-head);font-size:22px;font-weight:800;margin:6px 0 2px}
+.tier ul{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:13.5px}
+.appt .when{font-size:17px;font-weight:800}
+.codebox{display:flex;justify-content:space-between;align-items:center;border:1px dashed var(--accent-line);border-radius:12px;padding:10px 12px;margin-top:8px}
+.codebox b{font-family:var(--font-head);letter-spacing:.12em;font-size:18px}
+.list .it{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+.list .it:last-child{border-bottom:0}
+.list .t{font-weight:700} .list .s{color:var(--muted);font-size:12.5px} .list .r{text-align:right;white-space:nowrap}
+.list .p{color:var(--ok);font-size:12px;font-weight:700}
+.actions{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:12px}
+/* nav */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(10,10,18,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);
+  display:none;justify-content:space-around;padding:8px 6px calc(8px + var(--safe-b));z-index:5}
+nav.tabs.on{display:flex}
+nav.tabs button{background:transparent;border:0;color:var(--faint);font-family:var(--font);font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 14px;cursor:pointer}
+nav.tabs button svg{width:22px;height:22px}
+nav.tabs button.on{color:var(--text)}
+/* sheet */
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:10;align-items:flex-end;justify-content:center}
+.sheet.on{display:flex}
+.sheet .in{background:var(--panel);border:1px solid var(--line);border-bottom:0;border-radius:20px 20px 0 0;width:100%;max-width:560px;max-height:88vh;overflow:auto;padding:18px 16px calc(18px + var(--safe-b))}
+.days{display:flex;gap:6px;overflow-x:auto;margin:6px 0 10px;padding-bottom:4px}
+.day{flex:0 0 auto;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:12px;padding:8px 12px;font-family:var(--font);font-weight:700;font-size:13px;cursor:pointer;text-align:center}
+.day.on{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.slot{border:1px solid var(--line);background:var(--sunk);color:var(--text);border-radius:10px;padding:10px 4px;font-family:var(--font);font-weight:700;font-size:13.5px;cursor:pointer}
+.slot.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.toggle{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;margin-bottom:12px;font-size:14px}
+.toggle input{width:20px;height:20px;accent-color:var(--red)}
+.install{display:none;border-color:var(--accent-line)}
+.install.on{display:block}
+.skeleton{color:var(--faint);text-align:center;padding:40px 0}
+</style>
+</head>
+<body>
+
+<!-- SIGN IN -->
+<section class="screen" id="sLogin">
+  <div class="login">
+    <img class="logo" src="logo.png" alt="Trinity Auto Werx">
+    <p class="tag">Your garage — history, rewards and booking.</p>
+    <div id="stepAsk">
+      <label class="small muted" for="loginId" id="loginLabel">Email you booked with</label>
+      <input id="loginId" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" style="margin:6px 0 10px">
+      <button class="btn" id="sendCode">Send my code</button>
+      <p class="small faint" style="text-align:center;margin-top:12px"><a href="#" class="link" id="usePhone">Text me a code instead</a></p>
+    </div>
+    <div id="stepCode" style="display:none">
+      <p class="muted small" id="codeSent" style="text-align:center"></p>
+      <input id="code" class="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••" style="margin:4px 0 10px">
+      <button class="btn" id="verify">Sign in</button>
+      <p class="small faint" style="text-align:center;margin-top:12px"><a href="#" class="link" id="again">Use a different email</a></p>
+    </div>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+</section>
+
+<!-- HOME -->
+<section class="screen" id="sHome">
+  <header class="top"><img src="logo.png" alt="Trinity Auto Werx"><button class="iconbtn" id="signOut">Sign out</button></header>
+  <h1 id="hello">Hi</h1>
+  <div class="chips" id="vehChips"></div>
+  <div class="hero" id="hero"></div>
+  <div class="card install" id="install"></div>
+  <div class="actions" id="actions"></div>
+  <div id="nextAppt"></div>
+  <div id="careCard"></div>
+  <div class="card" id="ptsCard"></div>
+</section>
+
+<!-- HISTORY -->
+<section class="screen" id="sHistory">
+  <header class="top"><img src="logo.png" alt="Trinity Auto Werx"></header>
+  <h1>Your services</h1>
+  <div id="upList"></div>
+  <div class="card"><h2>Past</h2><div class="list" id="histList"></div></div>
+</section>
+
+<!-- REWARDS -->
+<section class="screen" id="sRewards">
+  <header class="top"><img src="logo.png" alt="Trinity Auto Werx"></header>
+  <h1>Rewards</h1>
+  <div class="card" id="rwTop"></div>
+  <div class="card"><h2>How it works</h2><p class="muted small" id="rwHow" style="margin:0"></p></div>
+  <div class="card"><h2>Points earned</h2><div class="list" id="rwList"></div></div>
+</section>
+
+<nav class="tabs" id="tabs">
+  <button data-tab="sHome" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+  <button data-tab="sHistory"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Services</button>
+  <button data-tab="sRewards"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Rewards</button>
+</nav>
+
+<!-- BOOK AGAIN -->
+<div class="sheet" id="sheet"><div class="in" id="sheetIn"></div></div>
+
+<script>
+// ---- settings -------------------------------------------------------------
+// The Apps Script web app (same /exec address the booking page uses).
+const API = "https://script.google.com/macros/s/AKfycbxHSB4PVrq2TjLcz3pWxTQbHDi3AsAYPr_9ExPCx7Mo9uuM6IbJY39bkkI7b_Acw10I3w/exec";
+
+// ---- plumbing -------------------------------------------------------------
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const usd = n => '$' + Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: 0 });
+const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+                set(k, v){ try { localStorage.setItem(k, v); } catch(e){} }, del(k){ try { localStorage.removeItem(k); } catch(e){} } };
+let S = store.get('trinity.s'), DATA = null, VEH = 0, LOGIN = { id: '', phone: false };
+
+async function api(type, extra){
+  const body = Object.assign({ type, s: S }, extra || {});
+  const r = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) });
+  const d = await r.json();
+  if (d && d.signedOut) { signOut(true); }
+  return d;
+}
+function show(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id));
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === id));
+  $('tabs').classList.toggle('on', id !== 'sLogin');
+  window.scrollTo(0, 0);
+}
+function msg(id, kind, html){ const m = $(id); m.className = 'msg on ' + kind; m.innerHTML = html; }
+
+// ---- sign in --------------------------------------------------------------
+$('usePhone').addEventListener('click', e => { e.preventDefault(); LOGIN.phone = !LOGIN.phone;
+  $('loginLabel').textContent = LOGIN.phone ? 'Mobile number you booked with' : 'Email you booked with';
+  $('loginId').type = LOGIN.phone ? 'tel' : 'email'; $('loginId').inputMode = LOGIN.phone ? 'tel' : 'email';
+  $('loginId').placeholder = LOGIN.phone ? '(410) 555-0134' : 'you@example.com'; $('loginId').value = '';
+  $('usePhone').textContent = LOGIN.phone ? 'Use my email instead' : 'Text me a code instead'; });
+$('sendCode').addEventListener('click', async () => {
+  const v = $('loginId').value.trim(); if(!v){ msg('loginMsg', 'bad', LOGIN.phone ? 'Enter your mobile number.' : 'Enter your email.'); return; }
+  const b = $('sendCode'); b.disabled = true; b.textContent = 'Sending…';
+  try {
+    const d = await api('appLogin', LOGIN.phone ? { phone: v } : { email: v });
+    if(!d.ok){ msg('loginMsg', 'bad', esc(d.error)); return; }
+    LOGIN.id = v; $('loginMsg').className = 'msg';
+    $('codeSent').textContent = 'If ' + v + ' is on file with us, a 6-digit code is on its way. It can take a minute.';
+    $('stepAsk').style.display = 'none'; $('stepCode').style.display = 'block'; $('code').focus();
+  } catch(e){ msg('loginMsg', 'bad', 'Couldn\'t reach us — check your connection.'); }
+  finally { b.disabled = false; b.textContent = 'Send my code'; }
+});
+$('again').addEventListener('click', e => { e.preventDefault(); $('stepCode').style.display = 'none'; $('stepAsk').style.display = 'block'; $('loginMsg').className = 'msg'; });
+$('code').addEventListener('input', () => { if($('code').value.replace(/\D/g, '').length === 6) $('verify').click(); });
+$('verify').addEventListener('click', async () => {
+  const b = $('verify'); b.disabled = true; b.textContent = 'Checking…';
+  try {
+    const d = await api('appVerify', Object.assign({ code: $('code').value }, LOGIN.phone ? { phone: LOGIN.id } : { email: LOGIN.id }));
+    if(!d.ok){ msg('loginMsg', 'bad', esc(d.error)); return; }
+    signedIn(d.s);
+  } catch(e){ msg('loginMsg', 'bad', 'Couldn\'t reach us — check your connection.'); }
+  finally { b.disabled = false; b.textContent = 'Sign in'; }
+});
+function signedIn(s){ S = s; store.set('trinity.s', s); load(); }
+function signOut(silent){
+  if(!silent && S) api('appLogout').catch(() => {});
+  S = null; DATA = null; store.del('trinity.s'); store.del('trinity.data');
+  $('stepCode').style.display = 'none'; $('stepAsk').style.display = 'block'; show('sLogin');
+  if(silent) msg('loginMsg', 'bad', 'Please sign in again.');
+}
+$('signOut').addEventListener('click', () => signOut(false));
+
+// ---- data -----------------------------------------------------------------
+async function load(){
+  const cached = store.get('trinity.data');
+  if(cached && !DATA){ try { DATA = JSON.parse(cached); render(); show('sHome'); } catch(e){} }
+  if(!DATA){ show('sHome'); $('hello').textContent = 'Loading your garage…'; }
+  try {
+    const d = await api('appData');
+    if(!d.ok){ if(!d.signedOut) $('hello').textContent = d.error || 'Something went wrong.'; return; }
+    DATA = d; store.set('trinity.data', JSON.stringify(d)); render();
+  } catch(e){ if(!DATA) $('hello').textContent = 'You\'re offline — open the app again when you have signal.'; }
+}
+
+function render(){
+  const d = DATA;
+  $('hello').textContent = 'Hi' + (d.first ? ', ' + d.first : '') + '.';
+  // vehicles + showcase
+  const vehs = d.showcase.length ? d.showcase.map(s => s.vehicle) : d.vehicles.slice(0, 4);
+  VEH = Math.min(VEH, Math.max(0, vehs.length - 1));
+  $('vehChips').innerHTML = vehs.length > 1 ? vehs.map((v, i) => '<button class="chip' + (i === VEH ? ' on' : '') + '" data-veh="' + i + '">' + esc(v) + '</button>').join('') : '';
+  renderHero(vehs[VEH]);
+  // actions
+  $('actions').innerHTML = (d.rebook ? '<button class="btn red" id="bookAgain">Book again</button>' : '') +
+    '<div class="row2"><a class="btn ghost" href="' + esc(d.links.book) + '" target="_blank" rel="noopener">New booking</a>' +
+    '<a class="btn ghost" href="tel:' + esc(String(d.links.phone).replace(/[^\d+]/g, '')) + '">Call us</a></div>';
+  if($('bookAgain')) $('bookAgain').addEventListener('click', openRebook);
+  // next appointment
+  const nx = d.upcoming[0];
+  $('nextAppt').innerHTML = nx ? '<div class="card appt"><h2>Next visit</h2><div class="when">' + esc(nx.when) + '</div><div class="muted">' + esc(nx.vehicle) +
+    (nx.estimate ? ' · est. ' + usd(nx.estimate) : '') + '</div><a class="btn ghost" style="margin-top:12px" href="' + esc(nx.manage) + '" target="_blank" rel="noopener">Change or cancel</a></div>' : '';
+  // care club
+  const cc = d.careClub;
+  $('careCard').innerHTML = cc && cc.status === 'active'
+    ? '<div class="card tier"><span class="badge">Care Club</span><div class="name">' + esc(cc.tier) + '</div><div class="muted small">Member' + (cc.since ? ' since ' + new Date(cc.since + 'T12:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '') +
+      (cc.vehicles ? ' · ' + esc(cc.vehicles) : '') + '</div>' + (cc.perks.length ? '<ul>' + cc.perks.map(p => '<li>' + esc(p) + '</li>').join('') + '</ul>' : '') + '</div>'
+    : cc && cc.status === 'pending'
+    ? '<div class="card tier"><span class="badge">Care Club</span><div class="name">' + esc(cc.tier) + '</div><div class="muted small">Application received — we\'ll call to set up your plan.</div></div>'
+    : cc && cc.status === 'paused'
+    ? '<div class="card tier"><span class="badge">Care Club</span><div class="name">' + esc(cc.tier) + '</div><div class="muted small">Your plan is paused. Call us to pick it back up.</div></div>'
+    : '<div class="card"><h2>Care Club</h2><div class="muted small" style="margin-bottom:10px">A detail every month, member pricing on everything else, and first pick of the schedule.</div><a class="btn ghost" href="' + esc(d.links.careClub) + '" target="_blank" rel="noopener">See the plans</a></div>';
+  // points
+  const r = d.rewards, pct = Math.min(100, Math.round(r.balance / r.rewardPoints * 100));
+  const active = r.codes.filter(c => c.active);
+  $('ptsCard').innerHTML = '<h2>Rewards</h2><div class="pts"><span class="big">' + r.balance.toLocaleString() + '</span><span class="muted small">points</span></div>' +
+    '<div class="prog"><i style="width:' + pct + '%"></i></div><div class="muted small">' +
+    (r.canRedeem ? 'You\'ve got a ' + usd(r.rewardValue) + ' reward ready.' : (r.rewardPoints - r.balance).toLocaleString() + ' more to ' + usd(r.rewardValue) + ' off.') + '</div>' +
+    (r.canRedeem ? '<button class="btn red" style="margin-top:12px" id="redeem">Get my ' + usd(r.rewardValue) + ' code</button>' : '') +
+    active.map(c => '<div class="codebox"><div><div class="small muted">' + usd(c.value) + ' off your next booking</div><b>' + esc(c.code) + '</b></div><button class="iconbtn" data-copy="' + esc(c.code) + '">Copy</button></div>').join('');
+  if($('redeem')) $('redeem').addEventListener('click', redeem);
+  // history
+  $('upList').innerHTML = d.upcoming.length ? '<div class="card"><h2>Coming up</h2><div class="list">' + d.upcoming.map(u => '<div class="it"><div><div class="t">' + esc(u.when) + '</div><div class="s">' + esc(u.vehicle) +
+    '</div></div><div class="r"><a class="link small" href="' + esc(u.manage) + '" target="_blank" rel="noopener">Change</a></div></div>').join('') + '</div></div>' : '';
+  $('histList').innerHTML = d.history.length ? d.history.map(h => '<div class="it"><div><div class="t">' + esc(h.vehicle || 'Detail') + '</div><div class="s">' + esc(h.label) +
+    (h.services ? ' · ' + esc(h.services) : '') + '</div></div><div class="r"><div class="t">' + (h.paid != null ? usd(h.paid) : '<span class="faint">est. ' + usd(h.estimate) + '</span>') + '</div>' +
+    (h.points ? '<div class="p">+' + h.points + ' pts</div>' : '') + '</div></div>').join('') : '<div class="faint small">Your finished details will show here.</div>';
+  // rewards tab
+  $('rwTop').innerHTML = $('ptsCard').innerHTML;
+  if($('rwTop').querySelector('#redeem')) { $('rwTop').querySelector('#redeem').id = 'redeem2'; $('redeem2').addEventListener('click', redeem); }
+  $('rwHow').innerHTML = 'You earn 1 point for every $1 you pay for a detail — that\'s 5% back. Every ' + r.rewardPoints + ' points turns into a ' + usd(r.rewardValue) +
+    ' code you can use on the website or in Book again. Codes last about six months. Tips don\'t count toward points.';
+  const earned = d.history.filter(h => h.points);
+  $('rwList').innerHTML = (earned.length ? earned.map(h => '<div class="it"><div><div class="t">' + esc(h.vehicle) + '</div><div class="s">' + esc(h.label) + '</div></div><div class="r p">+' + h.points + '</div></div>').join('') : '<div class="faint small">Points appear after each paid detail.</div>') +
+    (r.codes.length ? r.codes.filter(c => !c.active).map(c => '<div class="it"><div><div class="t">' + usd(c.value) + ' reward</div><div class="s">' + esc(c.code) + (c.used ? ' · used' : ' · expired') + '</div></div><div class="r faint">−' + r.rewardPoints + '</div></div>').join('') : '');
+}
+
+// ---- the car on the home screen -------------------------------------------
+let spinTimer = null;
+function renderHero(vehicle){
+  clearInterval(spinTimer);
+  const s = DATA.showcase.find(x => x.vehicle === vehicle);
+  const hero = $('hero');
+  if(s && s.type === 'spin' && s.frames.length){
+    hero.innerHTML = '<div class="spin" id="spin">' + s.frames.map((id, i) => '<img alt="" data-src="https://drive.google.com/thumbnail?id=' + encodeURIComponent(id) + '&sz=w1100"' + (i === 0 ? ' class="on"' : '') + '>').join('') +
+      '<div class="load" id="spinLoad">Loading your car…</div></div><div class="hint">↔ Drag to spin</div>' +
+      '<div class="cap"><div><b>' + esc(s.vehicle) + '</b><br><span>Detailed ' + new Date(s.date + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + '</span></div></div>';
+    startSpin();
+  } else if(s && s.type === '3d'){
+    hero.innerHTML = '<iframe src="' + esc(s.link) + '" title="3D view of your ' + esc(s.vehicle) + '" allow="fullscreen; xr-spatial-tracking" loading="lazy"></iframe>' +
+      '<div style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center"><div><b>' + esc(s.vehicle) + '</b><div class="small muted">3D scan</div></div>' +
+      '<a class="iconbtn" href="' + esc(s.link) + '" target="_blank" rel="noopener">Open full screen</a></div>';
+  } else {
+    hero.innerHTML = '<div class="placeholder"><svg viewBox="0 0 220 80" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 58h14m30 0h86m30 0h40M24 58a15 15 0 1 0 30 0 15 15 0 1 0-30 0zm116 0a15 15 0 1 0 30 0 15 15 0 1 0-30 0zM10 58V44l22-6 30-20h70l36 20 30 6v14"/></svg>' +
+      '<b style="color:var(--text)">' + esc(vehicle || 'Your car') + '</b>A 360° view of it, freshly detailed, shows up here after your next visit.</div>';
+  }
+}
+function startSpin(){
+  const box = $('spin'); if(!box) return;
+  const imgs = Array.from(box.querySelectorAll('img')); let loaded = 0, i = 0;
+  imgs.forEach(im => { im.onload = im.onerror = () => { loaded++; if(loaded >= Math.min(imgs.length, 6) && $('spinLoad')) $('spinLoad').remove(); }; im.src = im.dataset.src; });
+  const showFrame = n => { imgs[i].classList.remove('on'); i = ((n % imgs.length) + imgs.length) % imgs.length; imgs[i].classList.add('on'); };
+  spinTimer = setInterval(() => showFrame(i + 1), 160);
+  let startX = null, startI = 0;
+  box.addEventListener('pointerdown', e => { clearInterval(spinTimer); startX = e.clientX; startI = i; box.setPointerCapture(e.pointerId); });
+  box.addEventListener('pointermove', e => { if(startX == null) return; const per = box.clientWidth / imgs.length; showFrame(startI - Math.round((e.clientX - startX) / Math.max(4, per))); });
+  const end = () => { startX = null; };
+  box.addEventListener('pointerup', end); box.addEventListener('pointercancel', end);
+}
+
+// ---- rewards ----------------------------------------------------------------
+async function redeem(e){
+  const b = e.target; b.disabled = true; b.textContent = 'Making your code…';
+  const d = await api('appRedeem').catch(() => ({ ok: false, error: 'Couldn\'t reach us.' }));
+  if(!d.ok){ b.disabled = false; b.textContent = 'Try again'; alert(d.error); return; }
+  await load();
+}
+document.addEventListener('click', e => {
+  const c = e.target.closest('[data-copy]');
+  if(c){ (navigator.clipboard ? navigator.clipboard.writeText(c.dataset.copy) : Promise.reject()).then(() => { c.textContent = 'Copied'; }).catch(() => { c.textContent = c.dataset.copy; }); return; }
+  const v = e.target.closest('[data-veh]'); if(v){ VEH = Number(v.dataset.veh); render(); return; }
+  const t = e.target.closest('#tabs button'); if(t){ show(t.dataset.tab); return; }
+  if(e.target === $('sheet')) closeSheet();
+});
+
+// ---- book again ---------------------------------------------------------------
+let PLAN = null, PICK = { day: 0, start: '' };
+function closeSheet(){ $('sheet').classList.remove('on'); }
+async function openRebook(){
+  $('sheetIn').innerHTML = '<div class="skeleton">Finding open times…</div>'; $('sheet').classList.add('on');
+  const d = await api('appRebookPlan').catch(() => ({ ok: false, error: 'Couldn\'t reach us.' }));
+  if(!d.ok){ $('sheetIn').innerHTML = '<p>' + esc(d.error) + '</p><button class="btn ghost" onclick="closeSheet()">Close</button>'; return; }
+  PLAN = d; PICK = { day: 0, start: '' }; drawRebook();
+}
+function drawRebook(){
+  const d = PLAN, day = d.days[PICK.day];
+  const rw = d.reward;
+  $('sheetIn').innerHTML = '<h2>Book again</h2><div style="font-weight:800;font-size:17px">' + esc(d.vehicle) + '</div><div class="muted small">' + esc(d.services) + '</div>' +
+    '<div class="muted small" style="margin:6px 0 12px">About ' + Math.round(d.minutes / 30) / 2 + ' hrs · est. ' + usd(d.price) + (d.location ? ' · at ' + esc(d.location) : '') + '</div>' +
+    (rw ? '<label class="toggle"><input type="checkbox" id="useRw" checked><span>Use my ' + usd(rw.value) + ' reward' + (rw.code ? ' (' + esc(rw.code) + ')' : '') + '</span></label>' : '') +
+    (d.days.length ? '<div class="days">' + d.days.map((x, i) => '<button class="day' + (i === PICK.day ? ' on' : '') + '" data-day="' + i + '">' + esc(x.label) + '</button>').join('') + '</div>' +
+      '<div class="slots">' + day.slots.map(s => '<button class="slot' + (s.start === PICK.start ? ' on' : '') + '" data-start="' + esc(s.start) + '">' + esc(s.label) + '</button>').join('') + '</div>'
+      : '<p class="muted">No openings long enough in the next few weeks — give us a call.</p>') +
+    '<button class="btn red" id="confirm"' + (PICK.start ? '' : ' disabled') + '>' + (PICK.start ? 'Book ' + esc(day.label) + ' at ' + esc(day.slots.find(s => s.start === PICK.start).label) : 'Pick a time') + '</button>' +
+    '<p class="small faint" style="margin:10px 0 0">Same services and address as last time. Prices are confirmed on arrival. Need something different? Book on the website.</p>' +
+    '<div class="msg" id="rbMsg"></div><button class="btn ghost" style="margin-top:10px" onclick="closeSheet()">Close</button>';
+}
+$('sheetIn').addEventListener('click', async e => {
+  const dy = e.target.closest('[data-day]'); if(dy){ PICK.day = Number(dy.dataset.day); PICK.start = ''; drawRebook(); return; }
+  const sl = e.target.closest('[data-start]'); if(sl){ PICK.start = sl.dataset.start; drawRebook(); return; }
+  if(e.target.id === 'confirm' && PICK.start){
+    const b = e.target; b.disabled = true; b.textContent = 'Booking…';
+    const d = await api('appRebook', { start: PICK.start, useReward: !!($('useRw') && $('useRw').checked) }).catch(() => ({ ok: false, error: 'Couldn\'t reach us.' }));
+    if(!d.ok){ msg('rbMsg', 'bad', esc(d.error) + (d.taken ? '' : '')); b.disabled = false; b.textContent = 'Try again'; if(d.taken){ openRebook(); } return; }
+    $('sheetIn').innerHTML = '<h2>You\'re booked</h2><div style="font-weight:800;font-size:18px">' + esc(d.when) + '</div><div class="muted" style="margin:4px 0 14px">Est. ' + usd(d.total) +
+      (d.discount ? ' after your ' + usd(d.discount) + ' reward' : '') + '. A confirmation is on its way by email.</div><a class="btn ghost" href="' + esc(d.manage) + '" target="_blank" rel="noopener">Change or cancel</a>' +
+      '<button class="btn" style="margin-top:10px" onclick="closeSheet()">Done</button>';
+    load();
+  }
+});
+
+// ---- install hint -------------------------------------------------------------
+let deferredPrompt = null;
+const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e;
+  $('install').innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div class="small">Add Trinity to your home screen.</div><button class="iconbtn" id="doInstall">Install</button></div>';
+  $('install').classList.add('on'); $('doInstall').addEventListener('click', () => { deferredPrompt.prompt(); $('install').classList.remove('on'); }); });
+if(!standalone && /iphone|ipad|ipod/i.test(navigator.userAgent) && !store.get('trinity.iosHint')){
+  $('install').innerHTML = '<div class="small">Add Trinity to your home screen: tap <b>Share</b> <span aria-hidden="true">⬆︎</span> then <b>Add to Home Screen</b>. <a href="#" class="link" id="hideHint">Got it</a></div>';
+  $('install').classList.add('on');
+  $('hideHint').addEventListener('click', e => { e.preventDefault(); store.set('trinity.iosHint', '1'); $('install').classList.remove('on'); });
+}
+if('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
+
+// ---- start ----------------------------------------------------------------------
+(async function start(){
+  const m = location.hash.match(/login=([a-f0-9]+)/i);
+  if(m){
+    history.replaceState(null, '', location.pathname);
+    show('sLogin'); msg('loginMsg', 'good', 'Signing you in…');
+    const d = await api('appVerify', { token: m[1] }).catch(() => ({ ok: false, error: 'Couldn\'t reach us.' }));
+    if(d.ok) return signedIn(d.s);
+    msg('loginMsg', 'bad', esc(d.error));
+    return;
+  }
+  if(S) load(); else show('sLogin');
+})();
+</script>
+</body>
+</html>
